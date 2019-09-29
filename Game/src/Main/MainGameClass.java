@@ -2,8 +2,10 @@ package Main;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import Enemy.Enemy;
+import Enemy.EnemyTrajectory;
 import arenaCreator.ArenaManager;
 import arenaCreator.Frame;
 import fileWriting.FileManager;
@@ -21,10 +23,10 @@ public class MainGameClass {
 	
 	public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	
-	private Enemy e0 = new Enemy(p, 0, new PlayerLocation(50, 50), Color.RED);
-	private Enemy e1 = new Enemy(p, 0, new PlayerLocation(70, 120), Color.YELLOW);
-	private Enemy e2 = new Enemy(p, 0, new PlayerLocation(632, 63), Color.ORANGE);
-	private Enemy e3 = new Enemy(p, 0, new PlayerLocation(689, 285), Color.CYAN);
+	private Enemy e0 = new Enemy(0, new PlayerLocation(50, 50), Color.RED);
+	private Enemy e1 = new Enemy(0, new PlayerLocation(70, 120), Color.YELLOW);
+	private Enemy e2 = new Enemy(0, new PlayerLocation(632, 63), Color.ORANGE);
+	private Enemy e3 = new Enemy(0, new PlayerLocation(689, 285), Color.CYAN);
 	
 	public Frame frame;
 	
@@ -60,10 +62,32 @@ public class MainGameClass {
 		frame.addComponent(aMng);
 		frame.show();
 		
+		e0.setEnemyTrajectory(new EnemyTrajectory(100, 100, -5));
+		
 		p.saveToConfig();
 		
 		frame.addKeyLister(new KeyListeners());
 		frame.addWindowListener(new WindowCloseEvent());
+		
+		while (true) {
+			for (Enemy e : enemies) {
+				
+				e.move();
+				
+				if (p.getCenterdLocation().toPoint().distance(e.getCenteredLocation().toPoint()) < 36) {
+					p.setLocationByCoordinate(10, 10);
+				}
+				
+				try {
+					TimeUnit.MILLISECONDS.sleep(5);
+				} catch (InterruptedException exception) {
+					exception.printStackTrace();
+				}
+				
+			}
+			aMng.update();
+		}
+		
 	}
 	
 	private void checkAndSetMainVariables(FileManager config) {
@@ -90,9 +114,13 @@ public class MainGameClass {
 	private void initializeVariables() {
 		this.main = this;
 		enemies.add(e0);
+		e0.setDirection(-1);
 		enemies.add(e1);
+		e1.setDirection(1);
 		enemies.add(e2);
+		e2.setDirection(-1);
 		enemies.add(e3);
+		e3.setDirection(1);
 	}
 	
 }

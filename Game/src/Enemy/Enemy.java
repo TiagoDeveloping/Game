@@ -3,23 +3,26 @@ package Enemy;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 
-import player.Player;
 import player.PlayerLocation;
 
 public class Enemy {
 
 	private int id;
 	private PlayerLocation loc;
-	private Player target;
 	private boolean showing = true;
 	private Color c;
+	private EnemyTrajectory eTj;
+	private int direction;
 	
-	public Enemy(Player target, int id, PlayerLocation loc, Color c) {
-		this.target = target;
+	public Enemy(int id, PlayerLocation loc, Color c) {
 		this.id = id;
 		this.loc = loc;
 		this.c = c;
+		
+		this.eTj = new EnemyTrajectory(loc.getX(), loc.getY(), 10);
+		
 	}
 
 	public void paintEnemy(Graphics g) {
@@ -36,6 +39,33 @@ public class Enemy {
 			graphics2d.setColor(Color.BLACK);
 			
 		}
+	}
+	
+	public void setDirection(int dir) {
+		this.direction = dir;
+	}
+	
+	public void move() {
+		Point2D point = this.eTj.getNextPoint(direction);
+		int x = (int) point.getX();
+		int y = (int) point.getY();
+		
+		this.setLocation(new PlayerLocation(x, y));		
+		
+		checkBounceLeftRight();
+		
+		if (!(isWithinBoundaries())) {
+			this.eTj.flipRc();
+			this.setLocation(new PlayerLocation(x, y));
+		}
+	}
+	
+	public void setEnemyTrajectory(EnemyTrajectory eTj) {
+		this.eTj = eTj;
+	}
+	
+	public EnemyTrajectory getEnemyTrajectory() {
+		return this.eTj;
 	}
 	
 	public Color getColor() {
@@ -65,14 +95,6 @@ public class Enemy {
 		this.loc = new PlayerLocation(x, y);
 	}
 	
-	public Player getTarget() {
-		return this.target;
-	}
-	
-	public void setTarget(Player p) {
-		this.target = p;
-	}
-	
 	public int getId() {
 		return this.id;
 	}
@@ -83,6 +105,25 @@ public class Enemy {
 	
 	public void setLocation(PlayerLocation loc) {
 		this.loc = loc;
+	}
+
+	public void checkBounceLeftRight() {
+		if (this.loc.getX() <= 0 || this.loc.getX() >= 880) {
+			this.direction = this.direction * -1;
+		}
+	}
+	
+	public boolean isWithinBoundaries() {
+		if (this.loc.getX() <= 0 || this.loc.getX() >= 880) {
+			 return false;
+		} else if (this.loc.getY() <= 0 || this.loc.getY() >= 680) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean hasBounced() {
+		return (!isWithinBoundaries());
 	}
 	
 }

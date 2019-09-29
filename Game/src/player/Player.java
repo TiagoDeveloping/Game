@@ -59,6 +59,11 @@ public class Player /*extends JComponent*/ {
 	public void setLocation(PlayerLocation loc) {
 		this.loc = loc;
 	}
+	public void setLocationByCoordinate(int x, int y) {
+		this.loc.setX(x);
+		this.loc.setY(y);
+	}
+	
 	
 	public PlayerLocation getPlayerLocation() {
 		return this.loc;

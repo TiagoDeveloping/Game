@@ -27,7 +27,6 @@ public class Frame {
 		frame.setPreferredSize(size);
 		frame.setMaximumSize(size);
 		frame.setMinimumSize(size);
-		
 	}
 	
 	public void addWindowListener(WindowListener listener) {
