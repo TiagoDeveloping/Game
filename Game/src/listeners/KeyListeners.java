@@ -22,7 +22,7 @@ public class KeyListeners implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		code = e.getKeyCode();
 		updatePlayerLocation(code, e);
-		manageCollision();
+		//manageCollision();
 	}
 
 	@Override
@@ -32,19 +32,15 @@ public class KeyListeners implements KeyListener {
 	
 	private void updatePlayerLocation(int code, KeyEvent e) {
 		if (upKeyPressed(code)) {
-			System.out.println("up");
 			main.p.getPlayerLocation().addRelativeLocation(0, -5);
 			main.aMng.update();
 		} else if (rightKeyPressed(code)) {
-			System.out.println("right");
 			main.p.getPlayerLocation().addRelativeLocation(5, 0);
 			main.aMng.update();
 		} else if (leftKeyPressed(code)) {
-			System.out.println("left");
 			main.p.getPlayerLocation().addRelativeLocation(-5, 0);
 			main.aMng.update();
 		} else if (downKeyPressed(code)) {
-			System.out.println("down");
 			main.p.getPlayerLocation().addRelativeLocation(0, 5);
 			main.aMng.update();
 		}

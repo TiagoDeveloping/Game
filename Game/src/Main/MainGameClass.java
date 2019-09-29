@@ -76,6 +76,8 @@ public class MainGameClass {
 				
 				if (p.getCenterdLocation().toPoint().distance(e.getCenteredLocation().toPoint()) < 36) {
 					p.setLocationByCoordinate(10, 10);
+					e.hide();
+					e.setLocation(-10, -10);
 				}
 				
 				try {
