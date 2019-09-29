@@ -8,7 +8,7 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 
-public class Frame {
+public class Level_1 {
 	
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class Frame {
 	private JFrame frame;
 	private Dimension size;
 	
-	public Frame(int height, int width, String name) {
+	public Level_1(int height, int width, String name) {
 		frame = new JFrame(name);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

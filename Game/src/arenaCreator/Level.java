@@ -2,14 +2,18 @@ package arenaCreator;
 
 import javax.swing.JFrame;
 
+import Main.MainGameClass;
+
+@SuppressWarnings("serial")
 public class Level extends JFrame {
 
+	MainGameClass main = MainGameClass.main;
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8296458310970376533L;
 
-	public Level() {
+	public Level(int height, int width, String name) {
 		
 	}
 	

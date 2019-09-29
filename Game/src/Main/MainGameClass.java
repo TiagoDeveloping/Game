@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import Enemy.Enemy;
 import arenaCreator.ArenaManager;
-import arenaCreator.Frame;
+import arenaCreator.Level_1;
 import fileWriting.FileManager;
 import listeners.KeyListeners;
 import player.Player;
@@ -25,7 +25,7 @@ public class MainGameClass {
 	private Enemy e2 = new Enemy(p, 0, new PlayerLocation(632, 63), Color.ORANGE);
 	private Enemy e3 = new Enemy(p, 0, new PlayerLocation(689, 285), Color.CYAN);
 	
-	public Frame frame;
+	public Level_1 frame;
 	
 	public ArenaManager aMng;
 	
@@ -39,21 +39,14 @@ public class MainGameClass {
 		
 		FileManager config = new FileManager("config.properties");
 		FileManager playerData = new FileManager("playerData.properties");
-
 		checkAndSetPlayerLocationVariables(playerData);
 		
-		if (null == config.read("width")) {
-			config.write("width", "900");
-		}
-		
-		if (null == config.read("height")) {
-			config.write("height", "700");
-		}
+		checkAndSetMainVariables(config);
 		
 		int width = Integer.parseInt(config.read("width"));
 		int height = Integer.parseInt(config.read("height"));
 		
-		frame = new Frame(height, width, "Game!");
+		frame = new Level_1(height, width, "Game!");
 		
 		int pX = Integer.parseInt(playerData.read("x"));
 		int pY = Integer.parseInt(playerData.read("y"));
@@ -69,6 +62,16 @@ public class MainGameClass {
 		p.saveToConfig();
 		
 		frame.addKeyLister(new KeyListeners());
+	}
+
+	private void checkAndSetMainVariables(FileManager config) {
+		if (null == config.read("width")) {
+			config.write("width", "900");
+		}
+		
+		if (null == config.read("height")) {
+			config.write("height", "700");
+		}
 	}
 	
 	private void checkAndSetPlayerLocationVariables(FileManager playerData) {
