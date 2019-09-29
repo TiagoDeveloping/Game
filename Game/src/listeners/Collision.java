@@ -21,4 +21,12 @@ public class Collision {
 		return false;
 	}
 	
+	public void setEnemy(Enemy e) {
+		this.e = e;
+	}
+	
+	public void setPlayer(Player p) {
+		this.p = p;
+	}
+	
 }

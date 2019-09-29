@@ -40,7 +40,7 @@ class EnemySpecification {
 	void doesEnemyFollowStrateLineLeft() {
 		Enemy e = new Enemy(0, new PlayerLocation(100, 100), Color.yellow);
 		
-		e.setDirection(0);
+		e.setDirection(-1);
 		
 		e.move();
 		
@@ -55,7 +55,7 @@ class EnemySpecification {
 	void doesEnemyFollowStrateLineRight() {
 		Enemy e = new Enemy(0, new PlayerLocation(100, 100), Color.yellow);
 		
-		e.setDirection(0);
+		e.setDirection(1);
 		
 		e.move();
 		
@@ -72,7 +72,7 @@ class EnemySpecification {
 		
 		e.setEnemyTrajectory(new EnemyTrajectory(100, 100, -10));
 		
-		e.setDirection(0);
+		e.setDirection(1);
 		
 		e.move();
 		
@@ -89,7 +89,7 @@ class EnemySpecification {
 		
 		e.setEnemyTrajectory(new EnemyTrajectory(100, 100, -10));
 		
-		e.setDirection(0);
+		e.setDirection(-1);
 		
 		e.move();
 		
@@ -106,7 +106,7 @@ class EnemySpecification {
 		
 		e.setEnemyTrajectory(new EnemyTrajectory(100, 100, -10));
 		
-		e.setDirection(0);
+		e.setDirection(-1);
 		
 		e.move();
 		e.move();
@@ -148,7 +148,7 @@ class EnemySpecification {
 		
 		e.setEnemyTrajectory(new EnemyTrajectory(100, 100, -10));
 		
-		e.setDirection(0);
+		e.setDirection(-1);
 		
 		e.move();
 		e.move();

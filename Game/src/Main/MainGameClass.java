@@ -2,13 +2,14 @@ package Main;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import Enemy.Enemy;
-import Enemy.EnemyTrajectory;
 import arenaCreator.ArenaManager;
 import arenaCreator.Frame;
 import fileWriting.FileManager;
+import listeners.Collision;
 import listeners.KeyListeners;
 import listeners.WindowCloseEvent;
 import player.Player;
@@ -24,9 +25,10 @@ public class MainGameClass {
 	public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	
 	private Enemy e0 = new Enemy(0, new PlayerLocation(50, 50), Color.RED);
-	private Enemy e1 = new Enemy(0, new PlayerLocation(70, 120), Color.YELLOW);
-	private Enemy e2 = new Enemy(0, new PlayerLocation(632, 63), Color.ORANGE);
-	private Enemy e3 = new Enemy(0, new PlayerLocation(689, 285), Color.CYAN);
+	private Enemy e1 = new Enemy(1, new PlayerLocation(70, 120), new Color(71, 255, 231));
+	private Enemy e2 = new Enemy(2, new PlayerLocation(632, 63), Color.ORANGE);
+	private Enemy e3 = new Enemy(3, new PlayerLocation(689, 285), new Color(0, 102, 204));
+	private Enemy e4 = new Enemy(4, new PlayerLocation(263, 524), Color.GREEN);
 	
 	public Frame frame;
 	
@@ -62,30 +64,41 @@ public class MainGameClass {
 		frame.addComponent(aMng);
 		frame.show();
 		
-		e0.setEnemyTrajectory(new EnemyTrajectory(100, 100, -5));
-		
 		p.saveToConfig();
+		
+		Random r = new Random();
+		
+		for (Enemy e : enemies) {
+			e.setLocation(r.nextInt(850), r.nextInt(650));
+		}
 		
 		frame.addKeyLister(new KeyListeners());
 		frame.addWindowListener(new WindowCloseEvent());
 		
+		Collision c = new Collision(p, e0);
+		
+		System.out.println(enemies.toString());
+		
 		while (true) {
 			for (Enemy e : enemies) {
 				
-				e.move();
-				
-				if (p.getCenterdLocation().toPoint().distance(e.getCenteredLocation().toPoint()) < 36) {
-					p.setLocationByCoordinate(10, 10);
-					e.hide();
-					e.setLocation(-10, -10);
+				if (e.showing == true) {
+					e.move();
+					
+					c.setEnemy(e);
+					
+					if (c.collisionOccured()) {
+						p.setLocationByCoordinate(10, 10);
+						e.hide();
+						e.setLocation(-10, -10);
+					}
+					
+					try {
+						TimeUnit.MILLISECONDS.sleep(5);
+					} catch (InterruptedException exception) {
+						exception.printStackTrace();
+					}
 				}
-				
-				try {
-					TimeUnit.MILLISECONDS.sleep(5);
-				} catch (InterruptedException exception) {
-					exception.printStackTrace();
-				}
-				
 			}
 			aMng.update();
 		}
@@ -115,14 +128,16 @@ public class MainGameClass {
 	@SuppressWarnings("static-access")
 	private void initializeVariables() {
 		this.main = this;
-		enemies.add(e0);
+		enemies.add(0, e0);
 		e0.setDirection(-1);
-		enemies.add(e1);
+		enemies.add(1, e1);
 		e1.setDirection(1);
-		enemies.add(e2);
+		enemies.add(2, e2);
 		e2.setDirection(-1);
-		enemies.add(e3);
+		enemies.add(3, e3);
 		e3.setDirection(1);
+		enemies.add(4, e4);
+		e4.setDirection(-1);
 	}
 	
 }

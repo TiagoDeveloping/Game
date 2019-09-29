@@ -11,7 +11,7 @@ public class Enemy {
 
 	private int id;
 	private PlayerLocation loc;
-	private boolean showing = true;
+	public boolean showing = true;
 	private Color c;
 	private EnemyTrajectory eTj;
 	private int direction;
