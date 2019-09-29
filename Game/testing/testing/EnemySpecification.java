@@ -9,36 +9,36 @@ import org.junit.jupiter.api.Test;
 
 import Enemy.Enemy;
 import Enemy.EnemyTrajectory;
-import player.PlayerLocation;
+import player.Location;
 
 class EnemySpecification {
 	
 	@Test
 	void enemyNotAllowedToPassTopBorder() {
-		Enemy e = new Enemy(0, new PlayerLocation(5,5), Color.yellow);
-		e.setLocation(new PlayerLocation(50, 0));
+		Enemy e = new Enemy(0, new Location(5,5), Color.yellow);
+		e.setLocation(new Location(50, 0));
 		
 		assertThat(e.hasBounced(), is(true));
 	}
 	@Test
 	void enemyWithinBoundaries() {
-		Enemy e = new Enemy(0, new PlayerLocation(5,5), Color.yellow);
-		e.setLocation(new PlayerLocation(50, 1));
+		Enemy e = new Enemy(0, new Location(5,5), Color.yellow);
+		e.setLocation(new Location(50, 1));
 		
 		assertThat(e.hasBounced(), is(false));
 	}
 	
 	@Test
 	void enemyBoucneAtXBigger900() {
-		Enemy e = new Enemy(0, new PlayerLocation(5,5), Color.yellow);
-		e.setLocation(new PlayerLocation(901, 50));
+		Enemy e = new Enemy(0, new Location(5,5), Color.yellow);
+		e.setLocation(new Location(901, 50));
 		
 		assertThat(e.hasBounced(), is(true));
 	}
 	
 	@Test
 	void doesEnemyFollowStrateLineLeft() {
-		Enemy e = new Enemy(0, new PlayerLocation(100, 100), Color.yellow);
+		Enemy e = new Enemy(0, new Location(100, 100), Color.yellow);
 		
 		e.setDirection(-1);
 		
@@ -53,7 +53,7 @@ class EnemySpecification {
 	
 	@Test
 	void doesEnemyFollowStrateLineRight() {
-		Enemy e = new Enemy(0, new PlayerLocation(100, 100), Color.yellow);
+		Enemy e = new Enemy(0, new Location(100, 100), Color.yellow);
 		
 		e.setDirection(1);
 		
@@ -68,7 +68,7 @@ class EnemySpecification {
 	
 	@Test
 	void doesEnemyFollowStrateLineRightNegativeRC() {
-		Enemy e = new Enemy(0, new PlayerLocation(100, 100), Color.yellow);
+		Enemy e = new Enemy(0, new Location(100, 100), Color.yellow);
 		
 		e.setEnemyTrajectory(new EnemyTrajectory(100, 100, -10));
 		
@@ -85,7 +85,7 @@ class EnemySpecification {
 	
 	@Test
 	void doesEnemyFollowStrateLineLeftNegativeRC() {
-		Enemy e = new Enemy(0, new PlayerLocation(100, 100), Color.yellow);
+		Enemy e = new Enemy(0, new Location(100, 100), Color.yellow);
 		
 		e.setEnemyTrajectory(new EnemyTrajectory(100, 100, -10));
 		
@@ -102,7 +102,7 @@ class EnemySpecification {
 	
 	@Test
 	void doesEnemyStayWithinBoundaries() {
-		Enemy e = new Enemy(0, new PlayerLocation(100, 100), Color.yellow);
+		Enemy e = new Enemy(0, new Location(100, 100), Color.yellow);
 		
 		e.setEnemyTrajectory(new EnemyTrajectory(100, 100, -10));
 		
@@ -144,7 +144,7 @@ class EnemySpecification {
 	
 	@Test
 	void hasEnemyBounced() {
-		Enemy e = new Enemy(0, new PlayerLocation(100, 100), Color.yellow);
+		Enemy e = new Enemy(0, new Location(100, 100), Color.yellow);
 		
 		e.setEnemyTrajectory(new EnemyTrajectory(100, 100, -10));
 		

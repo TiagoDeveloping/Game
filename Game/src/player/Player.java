@@ -12,9 +12,9 @@ public class Player /*extends JComponent*/ {
 	
 	//private ImageIcon icon;
 	private int id;
-	private PlayerLocation loc;
+	private Location loc;
 	
-	public Player(int id, PlayerLocation location) {
+	public Player(int id, Location location) {
 		//icon = new ImageIcon(pathToImage);
 		this.id = id;
 		this.loc = location;
@@ -49,14 +49,14 @@ public class Player /*extends JComponent*/ {
 		
 	}
 	
-	public PlayerLocation getCenterdLocation() {
+	public Location getCenterdLocation() {
 		int x = this.loc.getX() + 25;
 		int y = this.loc.getY() + 25;
-		PlayerLocation cPLoc = new PlayerLocation(x, y);
+		Location cPLoc = new Location(x, y);
 		return cPLoc;
 	}
 	
-	public void setLocation(PlayerLocation loc) {
+	public void setLocation(Location loc) {
 		this.loc = loc;
 	}
 	public void setLocationByCoordinate(int x, int y) {
@@ -65,7 +65,7 @@ public class Player /*extends JComponent*/ {
 	}
 	
 	
-	public PlayerLocation getPlayerLocation() {
+	public Location getPlayerLocation() {
 		return this.loc;
 	}
 	

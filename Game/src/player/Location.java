@@ -3,12 +3,12 @@ package player;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 
-public class PlayerLocation {
+public class Location {
 
 	private int x;
 	private int y;
 	
-	public PlayerLocation(int x, int y) {
+	public Location(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

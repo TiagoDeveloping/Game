@@ -13,22 +13,22 @@ import listeners.Collision;
 import listeners.KeyListeners;
 import listeners.WindowCloseEvent;
 import player.Player;
-import player.PlayerLocation;
+import player.Location;
 
 public class MainGameClass {
 
 	public static MainGameClass main;
 	
-	private PlayerLocation pLoc = new PlayerLocation(50, 50);
+	private Location pLoc = new Location(50, 50);
 	public Player p = new Player(0, pLoc);
 	
 	public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	
-	private Enemy e0 = new Enemy(0, new PlayerLocation(50, 50), Color.RED);
-	private Enemy e1 = new Enemy(1, new PlayerLocation(70, 120), new Color(71, 255, 231));
-	private Enemy e2 = new Enemy(2, new PlayerLocation(632, 63), Color.ORANGE);
-	private Enemy e3 = new Enemy(3, new PlayerLocation(689, 285), new Color(0, 102, 204));
-	private Enemy e4 = new Enemy(4, new PlayerLocation(263, 524), Color.GREEN);
+	private Enemy e0 = new Enemy(0, new Location(50, 50), Color.RED);
+	private Enemy e1 = new Enemy(1, new Location(70, 120), new Color(71, 255, 231));
+	private Enemy e2 = new Enemy(2, new Location(632, 63), Color.ORANGE);
+	private Enemy e3 = new Enemy(3, new Location(689, 285), new Color(0, 102, 204));
+	private Enemy e4 = new Enemy(4, new Location(263, 524), Color.GREEN);
 	
 	public Frame frame;
 	
@@ -56,7 +56,7 @@ public class MainGameClass {
 		int pX = Integer.parseInt(playerData.read("x"));
 		int pY = Integer.parseInt(playerData.read("y"));
 		
-		PlayerLocation loc = new PlayerLocation(pX, pY);
+		Location loc = new Location(pX, pY);
 		p.setLocation(loc);
 		
 		aMng = new ArenaManager(p, enemies);

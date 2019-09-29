@@ -5,18 +5,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import player.PlayerLocation;
+import player.Location;
 
 public class Enemy {
 
 	private int id;
-	private PlayerLocation loc;
+	private Location loc;
 	public boolean showing = true;
 	private Color c;
 	private EnemyTrajectory eTj;
 	private int direction;
 	
-	public Enemy(int id, PlayerLocation loc, Color c) {
+	public Enemy(int id, Location loc, Color c) {
 		this.id = id;
 		this.loc = loc;
 		this.c = c;
@@ -50,13 +50,13 @@ public class Enemy {
 		int x = (int) point.getX();
 		int y = (int) point.getY();
 		
-		this.setLocation(new PlayerLocation(x, y));		
+		this.setLocation(new Location(x, y));		
 		
 		checkBounceLeftRight();
 		
 		if (!(isWithinBoundaries())) {
 			this.eTj.flipRc();
-			this.setLocation(new PlayerLocation(x, y));
+			this.setLocation(new Location(x, y));
 		}
 	}
 	
@@ -84,26 +84,26 @@ public class Enemy {
 		showing = true;
 	}
 	
-	public PlayerLocation getCenteredLocation() {
+	public Location getCenteredLocation() {
 		int x = this.loc.getX() + 10;
 		int y = this.loc.getY() + 10;
-		PlayerLocation loc = new PlayerLocation(x, y);
+		Location loc = new Location(x, y);
 		return loc;
 	}
 	
 	public void setLocation(int x, int y) {
-		this.loc = new PlayerLocation(x, y);
+		this.loc = new Location(x, y);
 	}
 	
 	public int getId() {
 		return this.id;
 	}
 	
-	public PlayerLocation getEnemyLocation() {
+	public Location getEnemyLocation() {
 		return this.loc;
 	}
 	
-	public void setLocation(PlayerLocation loc) {
+	public void setLocation(Location loc) {
 		this.loc = loc;
 	}
 

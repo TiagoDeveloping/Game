@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 import Enemy.Enemy;
 import Main.MainGameClass;
-import player.PlayerLocation;
+import player.Location;
 
 public class KeyListeners implements KeyListener {
 	
@@ -51,7 +51,7 @@ public class KeyListeners implements KeyListener {
 			Collision c = new Collision(main.p, enemy);
 			if (c.collisionOccured()) {
 				enemy.hide();
-				enemy.setLocation(new PlayerLocation(-10, -10));
+				enemy.setLocation(new Location(-10, -10));
 			}
 			main.aMng.update();
 		}
