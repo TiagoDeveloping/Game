@@ -44,6 +44,7 @@ public class MainGameClass {
 		
 		FileManager config = new FileManager("config.properties");
 		FileManager playerData = new FileManager("playerData.properties");
+		
 		checkAndSetPlayerLocationVariables(playerData);
 		
 		checkAndSetMainVariables(config);
@@ -77,30 +78,31 @@ public class MainGameClass {
 		
 		Collision c = new Collision(p, e0);
 		
-		System.out.println(enemies.toString());
-		
 		while (true) {
-			for (Enemy e : enemies) {
+			if (!(frame.isPaused())) {
+			
+				for (Enemy e : enemies) {
 				
-				if (e.showing == true) {
-					e.move();
+					if (e.showing == true) {
+						e.move();
 					
-					c.setEnemy(e);
+						c.setEnemy(e);
 					
-					if (c.collisionOccured()) {
-						p.setLocationByCoordinate(10, 10);
-						e.hide();
-						e.setLocation(-10, -10);
-					}
+						if (c.collisionOccured()) {
+							p.setLocationByCoordinate(10, 10);
+							e.hide();
+							e.setLocation(-10, -10);
+						}
 					
-					try {
-						TimeUnit.MILLISECONDS.sleep(5);
-					} catch (InterruptedException exception) {
-						exception.printStackTrace();
+						try {
+							TimeUnit.MILLISECONDS.sleep(5);
+						} catch (InterruptedException exception) {
+							exception.printStackTrace();
+						}
 					}
 				}
+				aMng.update();
 			}
-			aMng.update();
 		}
 		
 	}
@@ -113,6 +115,11 @@ public class MainGameClass {
 		if (null == config.read("height")) {
 			config.write("height", "700");
 		}
+		
+		if (null == config.read("level")) {
+			config.write("level", "1");
+		}
+		
 	}
 	
 	private void checkAndSetPlayerLocationVariables(FileManager playerData) {

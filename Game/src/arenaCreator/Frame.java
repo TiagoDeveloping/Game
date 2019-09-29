@@ -18,6 +18,8 @@ public class Frame {
 	private JFrame frame;
 	private Dimension size;
 	
+	private boolean paused = false;
+	
 	public Frame(int height, int width, String name) {
 		frame = new JFrame(name);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -27,6 +29,18 @@ public class Frame {
 		frame.setPreferredSize(size);
 		frame.setMaximumSize(size);
 		frame.setMinimumSize(size);
+	}
+	
+	public void pause() {
+		this.paused = true;
+	}
+	
+	public void unPause() {
+		this.paused = false;
+	}
+	
+	public boolean isPaused() {
+		return paused;
 	}
 	
 	public void addWindowListener(WindowListener listener) {

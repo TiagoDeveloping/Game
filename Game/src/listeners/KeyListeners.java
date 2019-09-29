@@ -3,6 +3,8 @@ package listeners;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JOptionPane;
+
 import Enemy.Enemy;
 import Main.MainGameClass;
 import player.Location;
@@ -17,17 +19,26 @@ public class KeyListeners implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		//getLogAndUpdatePlayerLocation(e);
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		code = e.getKeyCode();
 		updatePlayerLocation(code, e);
-		//manageCollision();
+		
+		if (escapeKeyPressed(code)) {
+			main.frame.pause();
+			JOptionPane.showMessageDialog(null, "The game has been paused!");
+			main.frame.unPause();
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		code = -1;
+	}
+	
+	private boolean escapeKeyPressed(int code) {
+		return code == 27;
 	}
 	
 	private void updatePlayerLocation(int code, KeyEvent e) {
