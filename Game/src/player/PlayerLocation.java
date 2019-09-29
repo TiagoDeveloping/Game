@@ -1,6 +1,7 @@
 package player;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class PlayerLocation {
 
@@ -17,8 +18,9 @@ public class PlayerLocation {
 		this.y = this.y + y;
 	}
 	
-	public Point toPoint() {
-		return new Point(x, y);
+	public Point2D toPoint() {
+		Point2D point = new Point(x, y);
+		return point;
 	}
 	
 	public int getX() {

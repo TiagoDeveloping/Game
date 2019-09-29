@@ -1,7 +1,5 @@
 package listeners;
 
-import java.awt.geom.Point2D;
-
 import Enemy.Enemy;
 import player.Player;
 
@@ -16,7 +14,7 @@ public class Collision {
 	}
 
 	public boolean collisionOccured() {
-		if (p.getCenterdLocation().toPoint().distance((Point2D) e.getCenteredLocation().toPoint()) < 36) {
+		if (p.getCenterdLocation().toPoint().distance(e.getCenteredLocation().toPoint()) < 36) {
 			return true;
 		}
 		

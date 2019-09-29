@@ -5,10 +5,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
-public class Level_1 {
+public class Frame {
 	
 	/**
 	 * 
@@ -17,9 +18,9 @@ public class Level_1 {
 	private JFrame frame;
 	private Dimension size;
 	
-	public Level_1(int height, int width, String name) {
+	public Frame(int height, int width, String name) {
 		frame = new JFrame(name);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		size = new Dimension(width, height);
 		
@@ -27,6 +28,10 @@ public class Level_1 {
 		frame.setMaximumSize(size);
 		frame.setMinimumSize(size);
 		
+	}
+	
+	public void addWindowListener(WindowListener listener) {
+		frame.addWindowListener(listener);
 	}
 	
 	public void update(Graphics g) {
