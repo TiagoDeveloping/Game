@@ -7,7 +7,6 @@ import arenaCreator.ArenaManager;
 import arenaCreator.Frame;
 import fileWriting.FileManager;
 import listeners.KeyListeners;
-import listeners.MouseListeners;
 import player.Player;
 import player.PlayerLocation;
 
@@ -66,7 +65,6 @@ public class MainGameClass {
 		p.saveToConfig();
 		
 		frame.addKeyLister(new KeyListeners());
-		frame.addMouseListener(new MouseListeners());
 	}
 	
 	private void checkAndSetPlayerLocationVariables(FileManager playerData) {

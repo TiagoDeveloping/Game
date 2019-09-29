@@ -3,7 +3,9 @@ package listeners;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import Enemy.Enemy;
 import Main.MainGameClass;
+import player.PlayerLocation;
 
 public class KeyListeners implements KeyListener {
 	
@@ -20,6 +22,7 @@ public class KeyListeners implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		code = e.getKeyCode();
 		getLogAndUpdatePlayerLocation(code, e);
+		manageCollision();
 	}
 
 	@Override
@@ -47,6 +50,17 @@ public class KeyListeners implements KeyListener {
 			System.out.println("down");
 			main.p.getPlayerLocation().addRelativeLocation(0, 2);
 			main.p.saveToConfig();
+			main.aMng.update();
+		}
+	}
+	
+	public void manageCollision() {
+		for (Enemy enemy : main.enemies) {
+			Collision c = new Collision(main.p, enemy);
+			if (c.collisionOccured()) {
+				enemy.setLocation(new PlayerLocation(-10, -10));
+				enemy.hide();
+			}
 			main.aMng.update();
 		}
 	}
