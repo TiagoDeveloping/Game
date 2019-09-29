@@ -83,7 +83,7 @@ public class FileManager {
 			//System.out.println("done");
 			
 			properties.setProperty(path, data);
-			properties.store(out, null);
+			properties.store(out, "Copyright© 2019 | All rights reserved. TiagoDeveloping !");
 			out.close();
 		} catch(IOException e) {
 			System.err.println("Could not find file: " + name);

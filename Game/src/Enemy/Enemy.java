@@ -13,31 +13,45 @@ public class Enemy {
 	private PlayerLocation loc;
 	private Player target;
 	private boolean showing = true;
+	private Color c;
 	
-	public Enemy(Player target, int id, PlayerLocation loc) {
+	public Enemy(Player target, int id, PlayerLocation loc, Color c) {
 		this.target = target;
 		this.id = id;
 		this.loc = loc;
+		this.c = c;
 	}
 
 	public void paintEnemy(Graphics g) {
 		if (showing == true) {
 			Graphics2D graphics2d = (Graphics2D) g;
 			
-			graphics2d.setColor(Color.YELLOW);
+			graphics2d.setColor(c);
 			
 			int x = loc.getX();
 			int y = loc.getY();
 			
 			graphics2d.fillRoundRect(x, y, 20, 20, 20, 20);
 			
-			graphics2d.setColor(Color.RED);
-			graphics2d.fillOval(getCenteredLocation().getX(), getCenteredLocation().getY(), 1, 1);
+			graphics2d.setColor(Color.BLACK);
+			
 		}
+	}
+	
+	public Color getColor() {
+		return this.c;
+	}
+	
+	public void setColor(Color c) {
+		this.c = c;
 	}
 	
 	public void hide() {
 		showing = false;
+	}
+	
+	public void show() {
+		showing = true;
 	}
 	
 	public PlayerLocation getCenteredLocation() {

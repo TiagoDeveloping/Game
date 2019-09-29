@@ -1,5 +1,6 @@
 package Main;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import Enemy.Enemy;
@@ -19,7 +20,10 @@ public class MainGameClass {
 	
 	public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	
-	private Enemy e = new Enemy(p, 0, new PlayerLocation(50, 50));
+	private Enemy e0 = new Enemy(p, 0, new PlayerLocation(50, 50), Color.RED);
+	private Enemy e1 = new Enemy(p, 0, new PlayerLocation(70, 120), Color.YELLOW);
+	private Enemy e2 = new Enemy(p, 0, new PlayerLocation(632, 63), Color.ORANGE);
+	private Enemy e3 = new Enemy(p, 0, new PlayerLocation(689, 285), Color.CYAN);
 	
 	public Frame frame;
 	
@@ -29,7 +33,7 @@ public class MainGameClass {
 		MainGameClass main = new MainGameClass();
 		main.StartGame();
 	}
-
+	
 	public void StartGame() {
 		initializeVariables();
 		
@@ -80,7 +84,10 @@ public class MainGameClass {
 	@SuppressWarnings("static-access")
 	private void initializeVariables() {
 		this.main = this;
-		enemies.add(e);
+		enemies.add(e0);
+		enemies.add(e1);
+		enemies.add(e2);
+		enemies.add(e3);
 	}
 	
 }
