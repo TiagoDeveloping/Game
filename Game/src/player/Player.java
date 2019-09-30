@@ -14,10 +14,14 @@ public class Player /*extends JComponent*/ {
 	private int id;
 	private Location loc;
 	
+	private Vector vec;
+	
 	public Player(int id, Location location) {
 		//icon = new ImageIcon(pathToImage);
 		this.id = id;
 		this.loc = location;
+		
+		this.vec = new Vector(0, 0);
 		
 		//graphics = (Graphics2D) g;
 		
@@ -25,6 +29,8 @@ public class Player /*extends JComponent*/ {
 	
 	public void paintPlayer(Graphics g) {
 		Graphics2D graphics2d = (Graphics2D) g;
+		
+		this.vec.getNextTickLocation(this.loc);
 		
 		graphics2d.setColor(Color.DARK_GRAY);
 		
@@ -47,6 +53,14 @@ public class Player /*extends JComponent*/ {
 		graphics2d.setColor(Color.red);
 		graphics2d.fillOval(getCenterdLocation().getX(), getCenterdLocation().getY(), 1, 1);
 		
+	}
+	
+	public Vector getVector() {
+		return this.vec;
+	}
+	
+	public void setVector(int veloX, int veloY) {
+		this.vec.setVelocity(veloX, veloY);
 	}
 	
 	public Location getCenterdLocation() {

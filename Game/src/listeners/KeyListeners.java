@@ -23,7 +23,9 @@ public class KeyListeners implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		code = e.getKeyCode();
-		updatePlayerLocation(code, e);
+//		updatePlayerLocation(code, e);
+		
+		keyPressedVelocityUpdate();
 		
 		if (escapeKeyPressed(code)) {
 			main.frame.pause();
@@ -34,28 +36,53 @@ public class KeyListeners implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		code = -1;
+		code = e.getKeyCode();
+		keyReleasedVelocityUpdate();
 	}
 	
 	private boolean escapeKeyPressed(int code) {
 		return code == 27;
 	}
 	
-	private void updatePlayerLocation(int code, KeyEvent e) {
+	private void keyPressedVelocityUpdate() {
 		if (upKeyPressed(code)) {
-			main.p.getPlayerLocation().addRelativeLocation(0, -5);
-			main.aMng.update();
-		} else if (rightKeyPressed(code)) {
-			main.p.getPlayerLocation().addRelativeLocation(5, 0);
-			main.aMng.update();
-		} else if (leftKeyPressed(code)) {
-			main.p.getPlayerLocation().addRelativeLocation(-5, 0);
-			main.aMng.update();
+			main.p.setVector(main.p.getVector().getX(), -2);
 		} else if (downKeyPressed(code)) {
-			main.p.getPlayerLocation().addRelativeLocation(0, 5);
-			main.aMng.update();
+			main.p.setVector(main.p.getVector().getX(), 2);
+		} else if (leftKeyPressed(code)) {
+			main.p.setVector(-2, main.p.getVector().getY());
+		} else if (rightKeyPressed(code)) {
+			main.p.setVector(2, main.p.getVector().getY());
 		}
 	}
+	
+	private void keyReleasedVelocityUpdate() {
+		if (upKeyPressed(code)) {
+			main.p.setVector(main.p.getVector().getX(), 0);
+		} else if (downKeyPressed(code)) {
+			main.p.setVector(main.p.getVector().getX(), 0);
+		} else if (leftKeyPressed(code)) {
+			main.p.setVector(0, main.p.getVector().getY());
+		} else if (rightKeyPressed(code)) {
+			main.p.setVector(0, main.p.getVector().getY());
+		}
+	}
+//	
+//	private void updatePlayerLocation(int code, KeyEvent e) {
+//		if (upKeyPressed(code)) {
+//			main.p.getPlayerLocation().addRelativeLocation(0, -5);
+//			main.aMng.update();
+//		} else if (rightKeyPressed(code)) {
+//			main.p.getPlayerLocation().addRelativeLocation(5, 0);
+//			main.aMng.update();
+//		} else if (leftKeyPressed(code)) {
+//			main.p.getPlayerLocation().addRelativeLocation(-5, 0);
+//			main.aMng.update();
+//		} else if (downKeyPressed(code)) {
+//			main.p.getPlayerLocation().addRelativeLocation(0, 5);
+//			main.aMng.update();
+//		}
+//	}
 	
 	public void manageCollision() {
 		for (Enemy enemy : main.enemies) {
