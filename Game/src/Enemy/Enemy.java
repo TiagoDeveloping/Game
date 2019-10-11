@@ -114,9 +114,9 @@ public class Enemy {
 	}
 	
 	public boolean isWithinBoundaries() {
-		if (this.loc.getX() <= 0 || this.loc.getX() >= 880) {
+		if (this.loc.getX() <= 0 || this.loc.getX() >= 870) {
 			 return false;
-		} else if (this.loc.getY() <= 0 || this.loc.getY() >= 680) {
+		} else if (this.loc.getY() <= 0 || this.getCenteredLocation().getY() >= 663) {
 			return false;
 		}
 		return true;

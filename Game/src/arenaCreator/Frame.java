@@ -1,5 +1,6 @@
 package arenaCreator;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -37,6 +38,14 @@ public class Frame {
 	
 	public void unPause() {
 		this.paused = false;
+	}
+	
+	public void setBackgroundColor(Color c) {
+		this.frame.setBackground(c);
+	}
+	
+	public Color getBackgroundColor() {
+		return this.frame.getBackground();
 	}
 	
 	public boolean isPaused() {

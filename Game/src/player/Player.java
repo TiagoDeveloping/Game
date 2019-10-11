@@ -27,32 +27,38 @@ public class Player /*extends JComponent*/ {
 		
 	}
 	
+	private Graphics2D graphics2d;
+	
+	private int x;
+	private int y;
+	
+	private int leftEyeX;
+	private int rightEyeX;
+	
+	private int rightEyeY;
+	private int leftEyeY;
+	
 	public void paintPlayer(Graphics g) {
-		Graphics2D graphics2d = (Graphics2D) g;
+		this.graphics2d = (Graphics2D) g;
 		
-		this.vec.getNextTickLocation(this.loc);
+		this.vec.doNextTickLocation(loc);
 		
 		graphics2d.setColor(Color.DARK_GRAY);
+			
+		x = loc.getX();
+		y = loc.getY();
 		
-		int x = loc.getX();
-		int y = loc.getY();
-		
-		int leftEyeX = x + 8;
-		int rightEyeX = x + 28;
-		
-		int rightEyeY = y + 10;
-		int leftEyeY = y + 10;
-		
+		leftEyeX = x + 8;
+		rightEyeX = x + 28;
+			
+		rightEyeY = y + 10;
+		leftEyeY = y + 10;
+			
 		graphics2d.fillRoundRect(x, y ,50, 50, 50, 50);
-		
+			
 		graphics2d.setColor(Color.white);
 		graphics2d.fillOval(leftEyeX, leftEyeY, 15, 15);
 		graphics2d.fillOval(rightEyeX, rightEyeY, 15, 15);
-		
-		
-		graphics2d.setColor(Color.red);
-		graphics2d.fillOval(getCenterdLocation().getX(), getCenterdLocation().getY(), 1, 1);
-		
 	}
 	
 	public Vector getVector() {
@@ -92,6 +98,15 @@ public class Player /*extends JComponent*/ {
 		file.write("id", this.id + "");
 		file.write("x", this.loc.getX() + "");
 		file.write("y", this.loc.getY() + "");
+	}
+	
+	public boolean isWithinBoundaries() {
+		if (this.loc.getX() <= 0 || this.loc.getX() >= 870) {
+			 return false;
+		} else if (this.loc.getY() <= 0 || this.getCenterdLocation().getY() >= 663) {
+			return false;
+		}
+		return true;
 	}
 	
 }

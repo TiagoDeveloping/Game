@@ -14,19 +14,18 @@ public class Collision {
 	}
 
 	public boolean collisionOccured() {
-		if (p.getCenterdLocation().toPoint().distance(e.getCenteredLocation().toPoint()) < 36) {
+		if (e.getCenteredLocation().toPoint().distance(p.getCenterdLocation().toPoint()) < 36) {
 			return true;
 		}
-		
 		return false;
 	}
 	
-	public void setEnemy(Enemy e) {
-		this.e = e;
+	public void setEnemy(Enemy enemy) {
+		this.e = enemy;
 	}
 	
-	public void setPlayer(Player p) {
-		this.p = p;
+	public void setPlayer(Player player) {
+		this.p = player;
 	}
 	
 }

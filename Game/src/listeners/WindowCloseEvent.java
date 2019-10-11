@@ -15,8 +15,7 @@ public class WindowCloseEvent implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		main.p.saveToConfig();
-		System.exit(0);
+		main.StopGame();
 	}
 
 	@Override

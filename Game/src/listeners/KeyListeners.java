@@ -5,15 +5,15 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JOptionPane;
 
-import Enemy.Enemy;
 import Main.MainGameClass;
-import player.Location;
 
 public class KeyListeners implements KeyListener {
 	
 	MainGameClass main = MainGameClass.main;
 	
 	int code;
+	
+	private int speed = 2;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -46,13 +46,13 @@ public class KeyListeners implements KeyListener {
 	
 	private void keyPressedVelocityUpdate() {
 		if (upKeyPressed(code)) {
-			main.p.setVector(main.p.getVector().getX(), -2);
+			main.p.setVector(main.p.getVector().getX(), -speed);
 		} else if (downKeyPressed(code)) {
-			main.p.setVector(main.p.getVector().getX(), 2);
+			main.p.setVector(main.p.getVector().getX(), speed);
 		} else if (leftKeyPressed(code)) {
-			main.p.setVector(-2, main.p.getVector().getY());
+			main.p.setVector(-speed, main.p.getVector().getY());
 		} else if (rightKeyPressed(code)) {
-			main.p.setVector(2, main.p.getVector().getY());
+			main.p.setVector(speed, main.p.getVector().getY());
 		}
 	}
 	
@@ -65,33 +65,6 @@ public class KeyListeners implements KeyListener {
 			main.p.setVector(0, main.p.getVector().getY());
 		} else if (rightKeyPressed(code)) {
 			main.p.setVector(0, main.p.getVector().getY());
-		}
-	}
-//	
-//	private void updatePlayerLocation(int code, KeyEvent e) {
-//		if (upKeyPressed(code)) {
-//			main.p.getPlayerLocation().addRelativeLocation(0, -5);
-//			main.aMng.update();
-//		} else if (rightKeyPressed(code)) {
-//			main.p.getPlayerLocation().addRelativeLocation(5, 0);
-//			main.aMng.update();
-//		} else if (leftKeyPressed(code)) {
-//			main.p.getPlayerLocation().addRelativeLocation(-5, 0);
-//			main.aMng.update();
-//		} else if (downKeyPressed(code)) {
-//			main.p.getPlayerLocation().addRelativeLocation(0, 5);
-//			main.aMng.update();
-//		}
-//	}
-	
-	public void manageCollision() {
-		for (Enemy enemy : main.enemies) {
-			Collision c = new Collision(main.p, enemy);
-			if (c.collisionOccured()) {
-				enemy.hide();
-				enemy.setLocation(new Location(-10, -10));
-			}
-			main.aMng.update();
 		}
 	}
 	

@@ -16,9 +16,6 @@ public class EnemyTrajectory {
 	}
 	
 	public Point2D getNextPoint(int direction) {
-		
-		
-		
 		if(direction == -1) { //left
 			y = y + rc;
 			x = x - 1;
@@ -33,6 +30,10 @@ public class EnemyTrajectory {
 	
 	public void flipRc() {
 		rc = rc * -1;
+	}
+	
+	public void setRc(int newRc) {
+		this.rc = newRc;
 	}
 	
 }

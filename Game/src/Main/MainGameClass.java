@@ -78,32 +78,33 @@ public class MainGameClass {
 		
 		Collision c = new Collision(p, e0);
 		
-		while (true) {
-			if (!(frame.isPaused())) {
-			
-				for (Enemy e : enemies) {
-				
-					if (e.showing == true) {
-						e.move();
-					
-						c.setEnemy(e);
-					
-						if (c.collisionOccured()) {
-							p.setLocationByCoordinate(10, 10);
-							e.hide();
-							e.setLocation(-10, -10);
-						}
-					
-						try {
-							TimeUnit.MILLISECONDS.sleep(5);
-						} catch (InterruptedException exception) {
-							exception.printStackTrace();
-						}
-					}
-				}
-				aMng.update();
-			}
-		}
+	    while(true) {
+	        if (!frame.isPaused()) {
+	          for (Enemy e : enemies) {
+	        	  if (e.showing) {
+	        		  e.move();
+	  	            
+	        		  c.setEnemy(e);
+
+	        		  if (c.collisionOccured()) {
+	        			  p.setLocationByCoordinate(10, 10);
+	        			  e.hide();
+	        			  e.setLocation(-10, -10);
+	        		  }
+	        	  }
+	          }
+	          
+	          try {
+	        	  TimeUnit.MILLISECONDS.sleep(10);
+	          } catch (InterruptedException exception) {
+	        	  exception.printStackTrace();
+	          }
+	        }
+	        aMng.update();
+	    }
+	}
+	
+	public void StopGame() {
 		
 	}
 	

@@ -10,7 +10,7 @@ public class Vector {
 		this.veloY = veloY;
 	}
 
-	public void getNextTickLocation(Location playerLoc) {
+	public void doNextTickLocation(Location playerLoc) {
 		playerLoc.addRelativeLocation(veloX, veloY);
 	}
 	
@@ -25,6 +25,10 @@ public class Vector {
 	
 	public int getY() {
 		return veloY;
+	}
+	
+	public void dump() {
+		System.out.println("Vector(x:" + veloX + ";y:" + veloY + ");");
 	}
 	
 }
