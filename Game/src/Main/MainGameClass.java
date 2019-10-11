@@ -105,7 +105,8 @@ public class MainGameClass {
 	}
 	
 	public void StopGame() {
-		
+		p.saveToConfig();
+		System.exit(0);
 	}
 	
 	private void checkAndSetMainVariables(FileManager config) {
