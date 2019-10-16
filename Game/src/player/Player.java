@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import fileWriting.FileManager;
+import fileWriting.ConfigurationFileManager;
 
 public class Player /*extends JComponent*/ {
 
@@ -94,7 +94,7 @@ public class Player /*extends JComponent*/ {
 	}
 	
 	public void saveToConfig() {
-		FileManager file = new FileManager("playerData.properties");
+		ConfigurationFileManager file = new ConfigurationFileManager("playerData.properties");
 		file.write("id", this.id + "");
 		file.write("x", this.loc.getX() + "");
 		file.write("y", this.loc.getY() + "");

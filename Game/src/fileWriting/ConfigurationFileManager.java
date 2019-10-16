@@ -8,16 +8,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
 
-public class FileManager {
+public class ConfigurationFileManager {
 	
 	private File file;
 	private String name;
 	
 	private String path = "GameData";
 	
-	private File dataFolder;
+	private static File dataFolder;
 	
-	public FileManager(String fileName) {
+	public ConfigurationFileManager(String fileName) {
 		dataFolder = new File(path);
 		
 		if (!(dataFolder.isDirectory())) {
@@ -40,6 +40,10 @@ public class FileManager {
 		} catch (FileNotFoundException e) {
 			System.err.println("File not found!");
 		}
+	}
+	
+	public static String getPathInDataFolder(String fileName) {
+		return dataFolder.getPath() + "/" + fileName;
 	}
 	
 	public void delete() {

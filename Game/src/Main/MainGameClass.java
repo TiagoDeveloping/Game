@@ -1,4 +1,4 @@
-package Main;
+ package Main;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -8,12 +8,12 @@ import java.util.concurrent.TimeUnit;
 import Enemy.Enemy;
 import arenaCreator.ArenaManager;
 import arenaCreator.Frame;
-import fileWriting.FileManager;
+import fileWriting.ConfigurationFileManager;
 import listeners.Collision;
 import listeners.KeyListeners;
 import listeners.WindowCloseEvent;
-import player.Player;
 import player.Location;
+import player.Player;
 
 public class MainGameClass {
 
@@ -28,7 +28,7 @@ public class MainGameClass {
 	private Enemy e1 = new Enemy(1, new Location(70, 120), new Color(71, 255, 231));
 	private Enemy e2 = new Enemy(2, new Location(632, 63), Color.ORANGE);
 	private Enemy e3 = new Enemy(3, new Location(689, 285), new Color(0, 102, 204));
-	private Enemy e4 = new Enemy(4, new Location(263, 524), Color.GREEN);
+	private Enemy e4 = new Enemy(4, new Location(263, 524), new Color(102, 0, 204));
 	
 	public Frame frame;
 	
@@ -42,8 +42,8 @@ public class MainGameClass {
 	public void StartGame() {
 		initializeVariables();
 		
-		FileManager config = new FileManager("config.properties");
-		FileManager playerData = new FileManager("playerData.properties");
+		ConfigurationFileManager config = new ConfigurationFileManager("config.properties");
+		ConfigurationFileManager playerData = new ConfigurationFileManager("playerData.properties");
 		
 		checkAndSetPlayerLocationVariables(playerData);
 		
@@ -87,9 +87,7 @@ public class MainGameClass {
 	        		  c.setEnemy(e);
 
 	        		  if (c.collisionOccured()) {
-	        			  p.setLocationByCoordinate(10, 10);
-	        			  e.hide();
-	        			  e.setLocation(-10, -10);
+	        			  doPlayerEnemyCollision(e);
 	        		  }
 	        	  }
 	          }
@@ -103,13 +101,19 @@ public class MainGameClass {
 	        aMng.update();
 	    }
 	}
+
+	private void doPlayerEnemyCollision(Enemy e) {
+		p.setLocationByCoordinate(10, 10);
+		  e.hide();
+		  e.setLocation(-10, -10);
+	}
 	
 	public void StopGame() {
 		p.saveToConfig();
 		System.exit(0);
 	}
 	
-	private void checkAndSetMainVariables(FileManager config) {
+	private void checkAndSetMainVariables(ConfigurationFileManager config) {
 		if (null == config.read("width")) {
 			config.write("width", "900");
 		}
@@ -124,7 +128,7 @@ public class MainGameClass {
 		
 	}
 	
-	private void checkAndSetPlayerLocationVariables(FileManager playerData) {
+	private void checkAndSetPlayerLocationVariables(ConfigurationFileManager playerData) {
 		if (null == playerData.read("x")) {
 			playerData.write("x", "425");
 		}
