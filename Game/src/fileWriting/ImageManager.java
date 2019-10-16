@@ -9,6 +9,10 @@ public class ImageManager {
 	
 	private File dataFolder;
 	
+	private String pathToFile;
+	
+	private File file;
+	
 	public ImageManager() {
 		return;
 	}
@@ -21,7 +25,9 @@ public class ImageManager {
 				dataFolder.mkdir();
 			}
 			
-			File file = new File(dataFolder.getPath() + "/" + path);
+			file = new File(dataFolder.getPath() + "/" + path);
+			
+			this.pathToFile = file.getPath();
 			
 			if (!(file.exists())) {
 				file.createNewFile();
@@ -33,8 +39,19 @@ public class ImageManager {
 	}
 	
 	public void downloadRemoteImage(String fileName, String url) {
+		this.pathToFile = dataPath + "/" + fileName;
 		RemoteFile rf = new RemoteFile(url, fileName);
 		rf.download();
+	}
+	
+	public File getFile() {
+		this.file = new File(this.pathToFile);
+		return this.file;
+	}
+	
+	public void setFile(String fileName) {
+		this.pathToFile = dataPath + "/" + fileName;
+		this.file = new File(fileName);
 	}
 	
 }

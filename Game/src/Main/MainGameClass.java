@@ -78,7 +78,7 @@ public class MainGameClass {
 		
 		Collision c = new Collision(p, e0);
 		
-	    while(true) {
+	    while(1 != 2) {
 	        if (!frame.isPaused()) {
 	          for (Enemy e : enemies) {
 	        	  if (e.showing) {
@@ -93,8 +93,10 @@ public class MainGameClass {
 	          }
 	          
 	          try {
-	        	  TimeUnit.MILLISECONDS.sleep(10);
+	        	  TimeUnit.MILLISECONDS.sleep(7);
 	          } catch (InterruptedException exception) {
+	        	  System.err.println("Could not delay the frame repainting."
+	        	  		+ "]");
 	        	  exception.printStackTrace();
 	          }
 	        }
