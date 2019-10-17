@@ -8,7 +8,9 @@ import java.util.concurrent.TimeUnit;
 import Enemy.Enemy;
 import arenaCreator.ArenaManager;
 import arenaCreator.Frame;
+import arenaCreator.LoadingScreen;
 import fileWriting.ConfigurationFileManager;
+import fileWriting.ImageManager;
 import listeners.Collision;
 import listeners.KeyListeners;
 import listeners.WindowCloseEvent;
@@ -34,25 +36,40 @@ public class MainGameClass {
 	
 	public ArenaManager aMng;
 	
+	private String urlToBackground = "https://lh3.googleusercontent.com/XepQls13L5ipbhG7PoN3PT2QP_dlYHnmwMfsr9gYh4A-3AJdWjubKz6vIX3aFwf-6_SCZjHgLy5d305aYpk9pQGFQkVnnSaprqu93iEmw9eL6NHnQcGzsFXP0kH7rLlj7NYhUOX9ESgHdLP6EQA4AIw7L9qMOlarRWNr7gyoWorDiXMAoHpVb4vO07LfaqpIVO5Gl4tIxI4i6M7aawgNSN4UrtoOgzvE5eopcXjBjSRslKNBCdtpXNBTQ81nzy0ITsZnXSIzQZRQrIt0Ofm4EcUHI8kt_pvDEamH4EdVQRtMmmDkDFuKMG0PNN3eZQAU2f_PBqQ_-AWTfOSe77sqAXkoQpwcs0-JNEJXPqEZlT9GXFkwusARRXzy_4leZ65HvMUojhvoGG8hj-csyZ5PdycURfT047wwQY0wwjuMEYM1WlTU-hahjWQwGFLTMR943Ky9Sgmy-v41IJ-KnE4zAr-KWofc6Txh3BXTlTUlr8OAi3RYIjsJMREnE8imKDF2OE0LdlQnHeykF8w8OiJI12RpTGFDuLxKEURdoYu857RD1cOzVXXZrmPf0yPB-e1SuFFp611mS30xTZCSOsAFTd3r_Kh93NOf6AQvxuLcCBrAGtPplh_ZcBtAzdA=w2880-h1678";
+	
+	public LoadingScreen lc;
+	
+	public static String dataFolderPath;
+	
 	public static void main(String[] args) {
 		MainGameClass main = new MainGameClass();
 		main.StartGame();
 	}
 	
 	public void StartGame() {
-		initializeVariables();
-		
 		ConfigurationFileManager config = new ConfigurationFileManager("config.properties");
 		ConfigurationFileManager playerData = new ConfigurationFileManager("playerData.properties");
 		
-		checkAndSetPlayerLocationVariables(playerData);
+		dataFolderPath = config.dataFolderPath();
 		
+		lc = new LoadingScreen();
+		
+		checkAndSetPlayerLocationVariables(playerData);
 		checkAndSetMainVariables(config);
 		
 		int width = Integer.parseInt(config.read("width"));
 		int height = Integer.parseInt(config.read("height"));
 		
 		frame = new Frame(height, width, "Game!");
+		
+		frame.addComponent(lc);
+		frame.show();
+		
+		ImageManager backgroundFile = new ImageManager("background.png");
+		backgroundFile.setFile("background.png");
+		
+		setuptBackground(backgroundFile);
 		
 		int pX = Integer.parseInt(playerData.read("x"));
 		int pY = Integer.parseInt(playerData.read("y"));
@@ -62,12 +79,11 @@ public class MainGameClass {
 		
 		aMng = new ArenaManager(p, enemies);
 		
-		frame.addComponent(aMng);
-		frame.show();
-		
 		p.saveToConfig();
 		
 		Random r = new Random();
+		
+		initializeEnemies();
 		
 		for (Enemy e : enemies) {
 			e.setLocation(r.nextInt(850), r.nextInt(650));
@@ -78,7 +94,19 @@ public class MainGameClass {
 		
 		Collision c = new Collision(p, e0);
 		
-	    while(1 != 2) {
+        try {
+      	  TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException exception) {
+      	  System.err.println("Could not delay the frame repainting!");
+      	  exception.printStackTrace();
+        }
+		
+        frame.removeComponent(lc);
+        
+		frame.addComponent(aMng);
+		frame.show();
+		
+	    while(true) {
 	        if (!frame.isPaused()) {
 	          for (Enemy e : enemies) {
 	        	  if (e.showing) {
@@ -95,13 +123,18 @@ public class MainGameClass {
 	          try {
 	        	  TimeUnit.MILLISECONDS.sleep(7);
 	          } catch (InterruptedException exception) {
-	        	  System.err.println("Could not delay the frame repainting."
-	        	  		+ "]");
+	        	  System.err.println("Could not delay the frame repainting!");
 	        	  exception.printStackTrace();
 	          }
 	        }
 	        aMng.update();
 	    }
+	}
+
+	private void setuptBackground(ImageManager backgroundFile) {
+		if (!(backgroundFile.exists())) {
+			backgroundFile.downloadRemoteImage("background.png", urlToBackground);
+		}
 	}
 
 	private void doPlayerEnemyCollision(Enemy e) {
@@ -141,7 +174,7 @@ public class MainGameClass {
 	}
 	
 	@SuppressWarnings("static-access")
-	private void initializeVariables() {
+	private void initializeEnemies() {
 		this.main = this;
 		enemies.add(0, e0);
 		e0.setDirection(-1);

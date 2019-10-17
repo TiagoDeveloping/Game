@@ -9,26 +9,25 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 
+import Main.MainGameClass;
+
 public class RemoteFile {
 
 	private File file;
 	
 	private String url;
+	
+	@SuppressWarnings("unused")
 	private String fileName;
 	
 	public RemoteFile(String urlToWebContent, String fileName) {
+		file = new File(MainGameClass.dataFolderPath + "/" + fileName);
 		this.url = urlToWebContent;
 		this.fileName = fileName;
 	}
 	
 	public void download() {
 		try {
-			file = new File(ConfigurationFileManager.getPathInDataFolder(fileName));
-			
-			if (!(file.exists())) {
-				file.createNewFile();
-			}
-			
 			URL url = new URL(this.url);
 			InputStream in = new BufferedInputStream(url.openStream());
 			OutputStream out = new BufferedOutputStream(new FileOutputStream(file));
@@ -36,6 +35,7 @@ public class RemoteFile {
 			for (int i; (i = in.read()) != -1; ) {
 			    out.write(i);
 			}
+			
 			in.close();
 			out.close();
 			
@@ -44,4 +44,18 @@ public class RemoteFile {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean fileExists() {
+		return this.file.exists();
+	}
+	
+	public void createFile() {
+		try {
+			this.file.createNewFile();
+		} catch (IOException e) {
+			System.err.println("Could not create file!");
+			e.printStackTrace();
+		}
+	}
+	
 }

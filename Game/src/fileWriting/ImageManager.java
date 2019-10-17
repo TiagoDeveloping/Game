@@ -39,13 +39,14 @@ public class ImageManager {
 	}
 	
 	public void downloadRemoteImage(String fileName, String url) {
-		this.pathToFile = dataPath + "/" + fileName;
 		RemoteFile rf = new RemoteFile(url, fileName);
+		this.pathToFile = dataPath + "/" + fileName;
 		rf.download();
 	}
 	
 	public File getFile() {
 		this.file = new File(this.pathToFile);
+		checkCurrentFile();
 		return this.file;
 	}
 	
@@ -53,5 +54,21 @@ public class ImageManager {
 		this.pathToFile = dataPath + "/" + fileName;
 		this.file = new File(fileName);
 	}
+	
+	public boolean exists() {
+		return this.file.exists();
+	}
+	
+	private void checkCurrentFile() {
+		if (!(this.file.exists())) {
+			try {
+				this.file.createNewFile();
+			} catch (IOException e) {
+				System.err.println("Could not create file!");
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 }

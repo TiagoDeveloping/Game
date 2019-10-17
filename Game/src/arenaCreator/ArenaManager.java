@@ -26,7 +26,7 @@ public class ArenaManager extends JComponent {
 		this.p = p;
 		this.enemies = enemies;
 		
-		iMng.setFile("bg.png");
+		iMng.setFile("background.png");
 		
 		try {
 			img = ImageIO.read(iMng.getFile());

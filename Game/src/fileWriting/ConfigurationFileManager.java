@@ -28,6 +28,10 @@ public class ConfigurationFileManager {
 		this.name = file.getName();
 	}
 	
+	public String dataFolderPath() {
+		return dataFolder.getPath();
+	}
+	
 	public void clear() {
 		FileOutputStream out;
 		try {
